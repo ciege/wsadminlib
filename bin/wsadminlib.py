@@ -2691,7 +2691,7 @@ def createCoregroup( name ):
     for coregroup in existing_cgs:
         coregroup_name = AdminConfig.showAttribute(coregroup, 'name')
         if coregroup_name == name:
-            return
+            return coregroup
 
     # create a new coregroup if the existing one is not found
     AdminTask.createCoreGroup('[-coreGroupName %s]' % name)
@@ -7655,7 +7655,7 @@ def addSIBusMember(clusterName, nodeName, serverName, SIBusName):
             memberServer = AdminConfig.showAttribute(member, "server")
             if((memberNode == nodeName)  and (memberServer == serverName)):
                 sop(m, "The bus member already exists.")
-                return
+                return member
             #endIf
         #endFor
         AdminTask.addSIBusMember(["-bus", SIBusName, "-node", nodeName, "-server", serverName])
@@ -7664,7 +7664,7 @@ def addSIBusMember(clusterName, nodeName, serverName, SIBusName):
             memberCluster = AdminConfig.showAttribute(member, "cluster")
             if(memberCluster == clusterName):
                 sop(m, "The bus member already exists.")
-                return
+                return member
             #endIf
         #endFor
 
@@ -9589,7 +9589,7 @@ def createREProviders ( proName, description, scope ):
         name = AdminConfig.showAttribute(ob, "name")
         if (name == proName):
             sop(m, "The %s Resource Environment Provider already exists." % proName)
-            return
+            return ob
 
     attrs = []
     attrs.append( [ 'name', proName ] )
@@ -9604,7 +9604,7 @@ def createREProviderReferenceable ( factoryClassname, classname, proid ):
         name = AdminConfig.showAttribute(ob, "factoryClassname")
         if (name == factoryClassname):
             sop(m, "The %s Resource Environment Provider Referenceable already exists." % factoryClassname)
-            return
+            return ob
 
     attrs = []
     attrs.append( [ 'factoryClassname', factoryClassname ] )
@@ -9619,7 +9619,7 @@ def createREProviderResourceEnvEntry ( entryName, jndiName, refid, proid ):
         name = AdminConfig.showAttribute(ob, "name")
         if (name == entryName):
             sop(m, "The %s Resource Environment Provider ResourceEnvEntry already exists." % entryName)
-            return
+            return ob
 
     attrs = []
     attrs.append( [ 'name', entryName ] )
@@ -9639,7 +9639,7 @@ def createREProviderProperties ( propName, propValue, proid ):
         name = AdminConfig.showAttribute(ob, "name")
         if (name == propName):
             sop(m, "The %s Resource Environment Provider Custom Property already exists." % propName)
-            return
+            return ob
 
     attrs = []
     attrs.append( [ 'name', propName ] )
